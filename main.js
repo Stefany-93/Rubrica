@@ -62,15 +62,12 @@ const rubrica= {
         };
     },
 
-    editContact: function(editName, editNumber) {  
-        if(editName && editNumber) {
-            this.lista_contatti.push({contact_name: editName, phone_number: editNumber});
-            this.showContacts;
-        };
-        if(check == false) {
-            check= true;
-            showContactBtn.innerHTML= 'Nascondi contatti';
-        };
+    editContact: function(nome, numero) {
+        this.lista_contatti.forEach(contatto => {
+            if(contatto.contact_name == nome){
+                contatto.phone_number = numero;
+            };
+        });  
     }
 };
 
@@ -98,8 +95,10 @@ showContactBtn.addEventListener('click', () => {
 });
 
 editContactBtn.addEventListener('click', ()=> {
-    rubrica.editContact(nameInput.value, numberInput.value);
-    rubrica.removeContact(nameInput.value);
-    nameInput.value= '';
-    numberInput.value= '';
+    if(nameInput != ''){
+        rubrica.editContact(nameInput.value, numberInput.value);
+        nameInput.value = '';
+        numberInput.value = '';
+    }
+    
 });
